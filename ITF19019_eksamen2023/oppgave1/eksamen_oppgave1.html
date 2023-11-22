@@ -23,40 +23,81 @@
                 <button id="number-9" value="9" onClick="display('9')">9</button>
                 <button id="number-comma" value="." onClick="display(',')">,</button>
                 <button id="number-0" value="0" onClick="display('0')">0</button>
-                <button id="control-clear" onClick="clearScreen()">C</button>
-                
+                <button id="control-clear" value="c" onClick="clearScreen()">C</button>
+                <!-- Her  endret bokstave feil på display til displey på alle knappene på taller og controls-->
+                <!--  knapp kal clearscreen ville  slette feltene så vidt jeg vet at for immpementere en knapp bør jeg bruke en kode  value="c"-->
             </div>
             <div id="controls">
                 <button id="control-plus" value="+" onClick="display('+')">+</button>
                 <button id="control-minus" value="-" onClick="display('-')">-</button>
                 <button id="control-multiply" value="*" onClick="display('*')">*</button>
-                <button id="control-multiply" value="/" onClick="display('/')">/</button>
+                <button id="control-divide" value="/" onClick="display('/')">/</button> 
+                <!-- rettet og endret duplisert kontroll multiply til divide-->
                 <button id="control-equal" value="=" onClick="solve()">=</button>
             </div>
         </div>
         <div id="memory">
             <p>Memory (<span id="memory-bank">0</span>)</p>
             <button id="memory-add" onclick="addMemory()">Add</button>
-            <button id="memory-browseback" disabled>Previous</button>
-            <button id="memory-browseforward" disabled>Next</button>
+            <button id="memory-browseback"  onclick="browseMemory('back')">Previous</button> <!-- Ble lagt fanskjonen til elementet/knappen Previous-->
+            <button id="memory-browseforward" onclick="browseMemory('forward')">Next</button><!-- Ble lagt fanskjonen til elementet/knappen Next -->
         </div>
     </article>
 
     <script>
-        function displey(val) {
-            document.getElementByID("calculatin").value += val
-            return val
+        //Denne funksjonen viser verdiene
+        function display(val) {
+            console.log("Displaying:", val); // lagt til console.log setningen i fenksjonen 
+            document.getElementById("calculation").value += val; // document.getElementByID og ("calculatin")  ble endret til document.getElementById  ("calculation")
+            return val;
         }
-
+        //Funksjon som evaluerer sifferet og returnerer resultatet
         function solve() {
-            let calculation = document.getElementById("calculation").value()
+            let calculation = document.getElementById("calculation").value;// fjernet parantesen
             let result = eval(calculation)
-            document.getElementById("calculation").value = results
+            document.getElementById("calculation").value = result;
             return result
         }
+        // Denne fanksjonen sletter alle verdiene 
+        function clearScreen() { 
+            document.getElementById("calculation").value = "";
 
-        function clearScreen() {
-            document.getElementById("calculation").value = ""
+        }
+         // Kode ble skrevet 
+        let memoryBank = [];
+        let currentMemoryIndex = -1;
+
+        function addMemory() {
+        let currentCalculation = document.getElementById("calculation").value;
+        memoryBank.push(currentCalculation);
+        updateMemoryCount();
+        currentMemoryIndex = memoryBank.length - 1;
+        enableMemoryButtons();
+        }
+
+        function browseMemory(direction) {
+                if (direction === 'back' && currentMemoryIndex > 0) {
+                    currentMemoryIndex--;
+                } else if (direction === 'forward' && currentMemoryIndex < memoryBank.length - 1) {
+                    currentMemoryIndex++;
+                }
+                updateCalculationFromMemory();
+        }
+
+        function updateMemoryCount() {
+                document.getElementById("memory-bank").innerText = memoryBank.length;
+        }
+
+        function updateCalculationFromMemory() {
+                document.getElementById("calculation").value = memoryBank[currentMemoryIndex];
+                enableMemoryButtons();
+        }
+
+        
+
+        function enableMemoryButtons() {
+                document.getElementById("memory-browseback").disabled = currentMemoryIndex === 0;
+                document.getElementById("memory-browseforward").disabled = currentMemoryIndex === memoryBank.length - 1;
         }
     </script>
 </body>

@@ -70,7 +70,7 @@ article {
     align-self: flex-start;
 }
 #numbers button:hover {
-     background: lightblue;
+    background: lightblue;
 }
 #controls {
     display: flex;
