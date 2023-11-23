@@ -45,20 +45,20 @@
     </article>
 
     <script>
-        //Denne funksjonen viser verdiene
+        //Denne funksjonen viser verdiene,  viser tall og operasjoner i tekstfeltet også verdien i tekstfeltet ved knapp klikking
         function display(val) {
-            console.log("Displaying:", val); // lagt til console.log setningen i fenksjonen 
+            console.log("Displaying:", val); // lagt til console.log setningen i funksjonen 
             document.getElementById("calculation").value += val; // document.getElementByID og ("calculatin")  ble endret til document.getElementById  ("calculation")
             return val;
         }
-        //Funksjon som evaluerer sifferet og returnerer resultatet
+        //Funksjon som evaluerer sifferet og returnerer resultatet , fanskjon bruker eval for evaluering og beregne  uttrykket så resultaten vises  i tekstfeltet
         function solve() {
             let calculation = document.getElementById("calculation").value;// fjernet parantesen
             let result = eval(calculation)
             document.getElementById("calculation").value = result;
             return result
         }
-        // Denne fanksjonen sletter alle verdiene 
+        // Denne fanksjonen sletter/tømmer  alle verdiene  når C kannppen klikkes
         function clearScreen() { 
             document.getElementById("calculation").value = "";
 
@@ -67,7 +67,8 @@
         let memoryBank = [];
         let currentMemoryIndex = -1;
 
-        function addMemory() {
+        function addMemory() { // function addMemory()denne fancsjonen  legger til beregningen i minnebanken og oppdaterer minne-
+                               //telleren aktivererminimer knappen for å blla gjennm minnet
         let currentCalculation = document.getElementById("calculation").value;
         memoryBank.push(currentCalculation);
         updateMemoryCount();
@@ -75,7 +76,7 @@
         enableMemoryButtons();
         }
 
-        function browseMemory(direction) {
+        function browseMemory(direction) { // denne fanksjonen gir mulighet å bla gjennom minnebanken fremm eller bakover i forhold til retning
                 if (direction === 'back' && currentMemoryIndex > 0) {
                     currentMemoryIndex--;
                 } else if (direction === 'forward' && currentMemoryIndex < memoryBank.length - 1) {
@@ -84,18 +85,18 @@
                 updateCalculationFromMemory();
         }
 
-        function updateMemoryCount() {
+        function updateMemoryCount() { //funksjonen oppdaterer  antall elementer i minne
                 document.getElementById("memory-bank").innerText = memoryBank.length;
         }
 
-        function updateCalculationFromMemory() {
+        function updateCalculationFromMemory() { // denne fanksjoenen oppdaterer tekstfel med beregningen fra minne og aktivererminimerer knapper for å bla gjennom minne
                 document.getElementById("calculation").value = memoryBank[currentMemoryIndex];
                 enableMemoryButtons();
         }
 
         
 
-        function enableMemoryButtons() {
+        function enableMemoryButtons() { // Fanksjonenn aktiverer /deaktiverer knapper for bla gjenomminne basert på minnen
                 document.getElementById("memory-browseback").disabled = currentMemoryIndex === 0;
                 document.getElementById("memory-browseforward").disabled = currentMemoryIndex === memoryBank.length - 1;
         }
