@@ -38,32 +38,87 @@
         ]
 
         //TODO: Function to add an element of parameter type 'square' or 'circle':
+        //manglet fanskjonen for å legge elementer av type'square' or 'circle': implemnter denne fanksjonen ved håndter klikk på S-knapp og C knapp
+        function addElement(type){
+                const x = Math.floor(Math.random() * canvas.width);
+                const y = Math.floor(Math.random() * canvas.height);
+
+            elements.push({ type, x, y });
+            updateCounts();
+        }
+        
         
 
         //TODO: Function to remove random element:
-        
+        // fanskjonen  fjerner et tilfeldig valg firkant eller sirkel fra canvaset når tyrkkes R knapp
+        function removeRandomElement() {
+                if (elements.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * elements.length);
+                    elements.splice(randomIndex, 1);
+                    updateCounts();
+                }
+            }
 
         //TODO: EventListeners to track user input:
+        // event listeners for å lytte etter tastetrykk (S, C, R) eller klikk på tilsvarende knapp
+        document.getElementById("sbutton").addEventListener("click", () => addElement("square"));
+            document.getElementById("cbutton").addEventListener("click", () => addElement("circle"));
+            document.getElementById("rbutton").addEventListener("click", removeRandomElement);
+
+            // EventListeners for tastetrykk legges til i tillegg til knappene)
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "s") addElement("square");
+                else if (event.key === "c") addElement("circle");
+                else if (event.key === "r") removeRandomElement();
+            });
 
 
         //TODO: Count the element types and total and print to interface
+        function updateCounts() {
+                const squareCount = elements.filter((element) => element.type === "square").length;
+                const circleCount = elements.filter((element) => element.type === "circle").length;
+
+                document.getElementById("squareCount").textContent = squareCount;
+                document.getElementById("circleCount").textContent = circleCount;
+                document.getElementById("totalCount").textContent = elements.length;
+            }
 
         
         //Function to draw on canvas:
         function renderDrawings() {
             //Clear the rectangle
             ctx.clearRect(0, 0, canvas.width, canvas.height)
+                drawElements();
+            requestAnimationFrame(renderDrawings);
+        }
 
             //TODO: Draw the elements on canvas:
+            function drawElements() {
+                    elements.forEach((element) => {
+                        ctx.beginPath();
+                        if (element.type === "square") {
+                            ctx.fillStyle = "blue";
+                            ctx.fillRect(element.x, element.y, 8, 8);
+                        } else if (element.type === "circle") {
+                            ctx.fillStyle = "gold";
+                            ctx.arc(element.x, element.y, 13, 0, 2 * Math.PI);
+                            ctx.fill();
+                        }
+                    });
+                }
 
 
             //Testprint:
             console.log("Currently drawing frames...")
             //Use requestAnimationFrame to re-run renderDrawings-function
             requestAnimationFrame(renderDrawings)
-        }
+        
         //Start drawing
-        renderDrawings()
+        function renderDrawings() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawElements();
+                requestAnimationFrame(renderDrawings);
+            }
     </script>
 </body>
 </html>
