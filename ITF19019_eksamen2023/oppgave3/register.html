@@ -21,6 +21,7 @@
             <h2 id="listHeader">Showing all Staff</h2>
             <div id="staffList">
                 
+                
             </div>
         </section>
         <section id="admin">
@@ -36,7 +37,7 @@
                 <p>
                     <label for="position">Position</label>
                     <select id="position" name="postition">
-                       
+                    
                     </select>
                 </p>
                 <p>
@@ -67,16 +68,128 @@
         </section>
     </main>
     <script>
-        //Array of staff objects
-        const staff = [
-            {firstname: "Bill", lastname: "Gates", position: "Director", department: "Administration", email: "bill@gates.net"},
-        ]
+        
+            const staff = [
+                {firstname: "Bill", lastname: "Gates", position: "Director", department: "Administration", email: "bill@gates.net"},
+                // Add more staff members as needed
+                ];
 
-        //Array of available positions
-        const positions = ["Director", "Team leader", "Producer", "Engineer", "Designer"]
+                const positions = ["Director", "Team leader", "Producer", "Engineer", "Designer"];
+                const departments = ["Administration", "Human Resources", "Production", "Finances"];
 
-        //Array of available departments
-        const departments = ["Administration", "Human Resources", "Production", "Finances"]
+                // Function to render staff list
+                function renderStaffList(filteredPosition = null) {
+            const staffListContainer = document.getElementById('staffList');
+                staffListContainer.innerHTML = '';
+
+            // Filter staff based on position if provided
+            const filteredStaff = filteredPosition ? staff.filter(member => member.position === filteredPosition) : staff;
+
+            // Render staff members
+            filteredStaff.forEach(member => {
+                const memberDiv = document.createElement('div');
+                memberDiv.innerHTML = `<p>${member.firstname} ${member.lastname} - ${member.position} - ${member.department} - ${member.email}</p>`;
+                staffListContainer.appendChild(memberDiv);
+            });
+
+                // Update list header
+            const listHeader = document.getElementById('listHeader');
+            listHeader.textContent = filteredPosition ? `Showing ${filteredPosition} Staff` : 'Showing all Staff';
+        }
+
+                // Function to render positions in the select dropdown
+            function renderPositions() {
+            const positionDropdown = document.getElementById('position');
+
+            positions.forEach(position => {
+                const option = document.createElement('option');
+                option.value = position;
+                option.textContent = position;
+                positionDropdown.appendChild(option);
+            });
+        }
+
+                // Function to render departments in the select dropdown
+            function renderDepartments() {
+            const departmentDropdown = document.getElementById('department');
+
+            departments.forEach(department => {
+                const option = document.createElement('option');
+                option.value = department;
+                option.textContent = department;
+                departmentDropdown.appendChild(option);
+            });
+        }
+
+                // Event listener for the "Save staff member" button
+                document.getElementById('saveStaff').addEventListener('click', function() {
+                const firstname = document.getElementById('firstname').value;
+                const lastname = document.getElementById('lastname').value;
+                const position = document.getElementById('position').value;
+                const department = document.getElementById('department').value;
+                const email = document.getElementById('email').value;
+
+                // Check if any required fields are empty
+                if (!firstname || !lastname || !email) {
+                    alert('Please fill in all required fields.');
+                return;
+            }
+
+                // Add the new staff member to the staff array
+                staff.push({firstname, lastname, position, department, email});
+
+                // Render the updated staff list
+                renderStaffList();
+        });
+
+                // Event listener for the "Save new position" button
+                document.getElementById('savePosition').addEventListener('click', function() {
+                const newPosition = document.getElementById('newPosition').value;
+
+                // Add the new position to the positions array
+                positions.push(newPosition);
+
+                // Render the updated positions dropdown
+                renderPositions();
+            });
+
+                // Event listener for the "Save new department" button
+                document.getElementById('saveDepartment').addEventListener('click', function() {
+                const newDepartment = document.getElementById('newDepartment').value;
+
+                // Add the new department to the departments array
+                departments.push(newDepartment);
+
+                // Render the updated departments dropdown
+                renderDepartments();
+            });
+
+                // Event listener for position filter buttons
+                        document.querySelectorAll('#positionFilter button').forEach(button => {
+                        button.addEventListener('click', function () {
+                        // Remove the "active" class from all buttons
+                        document.querySelectorAll('#positionFilter button').forEach(btn => btn.classList.remove('active'));
+
+                        // Add the "active" class to the clicked button
+                        this.classList.add('active');
+
+                        // Get the position value from the button's text content
+                        const filteredPosition = this.textContent === 'All positions' ? null : this.textContent;
+                        // Update the heading for the staff list based on the selected position filter
+                        const heading = document.getElementById('staffListHeading');
+                        heading.textContent = filteredPosition ? `Staff List - ${filteredPosition}` : 'Staff List';
+
+                        // Render the staff list with the selected position filter
+                        renderStaffList(filteredPosition);
+                    });
+        });
+        
+
+                // Initial rendering
+                renderPositions();
+                renderDepartments();
+                renderStaffList();
+        
     </script>
 </body>
 </html>
