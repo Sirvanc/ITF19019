@@ -16,11 +16,18 @@
                 <p>Filter on position:</p>
                 <ul id="positionFilter">
                     <li><button class="all active">All positions</button></li>
+                    <li><button class="Director">Director</button></li>
+                    <li><button class="Teamleader">Team leader</button></li>
+                    <li><button class="Producer">Producer</button></li>
+                    <li><button class="Engineer">Engineer</button></li>
+                    <li><button class="Designer">Designer</button></li>
                     
                 </ul>
             </nav>
             <h2 id="listHeader">Showing all Staff</h2>
             <div id="staffList">
+            
+            
                 
                 
             </div>
@@ -37,7 +44,8 @@
                     <input type="text" name="lastname" id="lastname" placeholder="Lastname" /></p>
                 <p>
                     <label for="position">Position</label>
-                    <select id="position" name="postition">
+                    <select id="position" name="position"> <!--(name="postition" ble endret til  name="position"-->
+                    <!-- -->
                     
                     </select>
                 </p>
@@ -48,7 +56,7 @@
                     </select>
                 </p>
                 <p>
-                    <label for="email">Email address</label><input type="email" name="email" id="email" placeholder="you@email.com" /></select>
+                    <label for="email">Email address</label><input type="email" name="email" id="email" placeholder="you@email.com" />
                 </p>
                 <button id="saveStaff">Save staff member</button>
             </div>
@@ -136,7 +144,7 @@
                 return;
             }
 
-                // Legg til den nye medarbeideren til personalet
+                // Legg til den nye ansatten til personalet
                 staff.push({firstname, lastname, position, department, email});
 
                 // Gjengi den oppdaterte personallisten
@@ -224,8 +232,8 @@ function renderDepartmentFilter() {
 }
 
 // Kall funksjonen for å gjengi avdelingsfilteret
+    renderDepartmentFilter();
 
-        
 
                 // Innledende gjengivelse til stilling, avdelinger og ansatter 
                 renderPositions();
