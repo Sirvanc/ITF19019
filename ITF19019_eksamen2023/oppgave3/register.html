@@ -161,8 +161,11 @@
                 // Legger til den nye avdelingen i avdelings arrayet
                 departments.push(newDepartment);
 
+
                 // Gjengi den oppdaterte menyen for avdelinger
                 renderDepartments();
+                renderDepartmentFilter();
+
             });
 
                 // Event listener for posisjonsfilterknapper
@@ -184,12 +187,52 @@
                         renderStaffList(filteredPosition);
                     });
         });
+
+        // Funksjon for å gjengi avdelingsfilteret
+function renderDepartmentFilter() {
+    const departmentFilter = document.getElementById('positionFilter');
+    departmentFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
+
+    departments.forEach(department => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.textContent = department;
+        li.appendChild(button);
+        departmentFilter.appendChild(li);
+    });
+
+    // Legg til event listener for avdelingsfilterknapper
+    document.querySelectorAll('#positionFilter button').forEach(button => {
+        button.addEventListener('click', function () {
+            // Fjerner den "aktive" klassen fra alle knappene
+            document.querySelectorAll('#positionFilter button').forEach(btn => btn.classList.remove('active'));
+
+            // Legger til den "aktive" klassen til den klikkede knappen
+            this.classList.add('active');
+
+            // Får posisjonsverdien fra knappens tekstinnhold
+            const filteredPosition = this.textContent === 'All positions' ? null : this.textContent;
+
+            // Oppdater overskriften for personallisten basert på valgt stillingsfilter
+            const heading = document.getElementById('listHeader');
+            heading.textContent = filteredPosition ? `Staff List - ${filteredPosition}` : 'Staff List';
+
+            // Gjengi personallisten med det valgte posisjonsfilteret
+            renderStaffList(filteredPosition);
+        });
+    });
+}
+
+// Kall funksjonen for å gjengi avdelingsfilteret
+
         
 
                 // Innledende gjengivelse til stilling, avdelinger og ansatter 
                 renderPositions();
                 renderDepartments();
                 renderStaffList();
+                renderDepartmentFilter();
+
         
     </script>
 </body>
