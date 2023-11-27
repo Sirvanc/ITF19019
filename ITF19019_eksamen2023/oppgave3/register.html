@@ -16,7 +16,8 @@
                 <p>Filter on position:</p>
                 <ul id="positionFilter">
                     <li><button class="all active">All positions</button></li>
-                    <li><button class="Director">Director</button></li>
+                    <!--Lagt <li></li> for  rest av manglende knapper "Director""Teamleader"Producer" Engineer" Designer-->
+                    <li><button class="Director">Director</button></li> 
                     <li><button class="Teamleader">Team leader</button></li>
                     <li><button class="Producer">Producer</button></li>
                     <li><button class="Engineer">Engineer</button></li>
@@ -121,7 +122,7 @@
             });
         }
 
-                // Funksjon for å gjengi avdelinger i nmenyen
+                // Funksjon for å gjengi avdelinger i menyen
             function renderDepartments() {
             const departmentDropdown = document.getElementById('department');
 
@@ -208,8 +209,7 @@
                         renderStaffList(filteredPosition);
                     });
                 });
-
-                        // Funksjon for å gjengi avdelingsfilteret
+                // Funksjon for å gjengi avdelingsfilteret
                 function renderDepartmentFilter() {
                         const departmentFilter = document.getElementById('positionFilter');
                         departmentFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
