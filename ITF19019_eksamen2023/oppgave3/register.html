@@ -16,10 +16,13 @@
                 <p>Filter on position:</p>
                 <ul id="positionFilter">
                     <li><button class="all active">All positions</button></li>
+                    
                 </ul>
             </nav>
             <h2 id="listHeader">Showing all Staff</h2>
             <div id="staffList">
+            
+            
                 
                 
             </div>
@@ -36,7 +39,8 @@
                     <input type="text" name="lastname" id="lastname" placeholder="Lastname" /></p>
                 <p>
                     <label for="position">Position</label>
-                    <select id="position" name="postition">
+                    <select id="position" name="position"> <!--(name="postition" ble endret til  name="position"-->
+                    <!-- -->
                     
                     </select>
                 </p>
@@ -47,7 +51,7 @@
                     </select>
                 </p>
                 <p>
-                    <label for="email">Email address</label><input type="email" name="email" id="email" placeholder="you@email.com" /></select>
+                    <label for="email">Email address</label><input type="email" name="email" id="email" placeholder="you@email.com" />
                 </p>
                 <button id="saveStaff">Save staff member</button>
             </div>
@@ -68,13 +72,16 @@
         </section>
     </main>
     <script>
-        
+            
+             //Array of staff objects
             const staff = [
                 {firstname: "Bill", lastname: "Gates", position: "Director", department: "Administration", email: "bill@gates.net"},
                 // Legger til flere ansatte etter behov
                 ];
 
+                 //Array of available positions
                 const positions = ["Director", "Team leader", "Producer", "Engineer", "Designer"];
+                //Array of available departments
                 const departments = ["Administration", "Human Resources", "Production", "Finances"];
 
                 // Funksjon for å gjengi personalliste
@@ -109,7 +116,7 @@
             });
         }
 
-                // Funksjon for å gjengi avdelinger i nmenyen
+                // Funksjon for å gjengi avdelinger i menyen
             function renderDepartments() {
             const departmentDropdown = document.getElementById('department');
 
@@ -135,7 +142,7 @@
                 return;
             }
 
-                // Legg til den nye medarbeideren til personalet
+                // Legg til den nye ansatten til personalet
                 staff.push({firstname, lastname, position, department, email});
 
                 // Gjengi den oppdaterte personallisten
@@ -164,6 +171,16 @@
                 // Gjengi den oppdaterte menyen for avdelinger
                 renderDepartments();
                 renderDepartmentFilter();
+                const count = filteredStaff.length;
+                    const countText = count === 1 ? 'employee' : 'employees';
+                    const countHeader = document.getElementById('listHeader');
+                    countHeader.textContent += ` - Showing ${count} ${countText} with position ${filteredPosition}`;
+                    if (filteredPosition === null) {
+                        // Tilbakestill ansattlisten og vis alle ansatte alfabetisk sortert etter etternavn
+                        staff.sort((a, b) => a.lastname.localeCompare(b.lastname));
+                        renderStaffList();
+                        return;
+                    }
 
             });
 
@@ -185,52 +202,51 @@
                         // Gjengi personallisten med det valgte posisjonsfilteret
                         renderStaffList(filteredPosition);
                     });
-        });
+                });
+                // Funksjon for å gjengi avdelingsfilteret
+                function renderDepartmentFilter() {
+                        const departmentFilter = document.getElementById('positionFilter');
+                        departmentFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
 
-        // Funksjon for å gjengi avdelingsfilteret
-function renderDepartmentFilter() {
-    const departmentFilter = document.getElementById('positionFilter');
-    departmentFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
+                    departments.forEach(department => {
+                        const li = document.createElement('li');
+                        const button = document.createElement('button');
+                        button.textContent = department;
+                        li.appendChild(button);
+                        departmentFilter.appendChild(li);
+                });
 
-    departments.forEach(department => {
-        const li = document.createElement('li');
-        const button = document.createElement('button');
-        button.textContent = department;
-        li.appendChild(button);
-        departmentFilter.appendChild(li);
-    });
+                // Legg til event listener for avdelingsfilterknapper
+                document.querySelectorAll('#positionFilter button').forEach(button => {
+                    button.addEventListener('click', function () {
+                        // Fjerner den "aktive" klassen fra alle knappene
+                        document.querySelectorAll('#positionFilter button').forEach(btn => btn.classList.remove('active'));
 
-    // Legg til event listener for avdelingsfilterknapper
-    document.querySelectorAll('#positionFilter button').forEach(button => {
-        button.addEventListener('click', function () {
-            // Fjerner den "aktive" klassen fra alle knappene
-            document.querySelectorAll('#positionFilter button').forEach(btn => btn.classList.remove('active'));
+                        // Legger til den "aktive" klassen til den klikkede knappen
+                        this.classList.add('active');
 
-            // Legger til den "aktive" klassen til den klikkede knappen
-            this.classList.add('active');
+                        // Får posisjonsverdien fra knappens tekstinnhold
+                        const filteredPosition = this.textContent === 'All positions' ? null : this.textContent;
 
-            // Får posisjonsverdien fra knappens tekstinnhold
-            const filteredPosition = this.textContent === 'All positions' ? null : this.textContent;
+                        // Oppdater overskriften for personallisten basert på valgt stillingsfilter
+                        const heading = document.getElementById('listHeader');
+                        heading.textContent = filteredPosition ? `Staff List - ${filteredPosition}` : 'Staff List';
 
-            // Oppdater overskriften for personallisten basert på valgt stillingsfilter
-            const heading = document.getElementById('listHeader');
-            heading.textContent = filteredPosition ? `Staff List - ${filteredPosition}` : 'Staff List';
+                        // Gjengi personallisten med det valgte posisjonsfilteret
+                        renderStaffList(filteredPosition);
+                    });
+                });
+            }
 
-            // Gjengi personallisten med det valgte posisjonsfilteret
-            renderStaffList(filteredPosition);
-        });
-    });
-}
+            // Kall funksjonen for å gjengi avdelingsfilteret
+            renderDepartmentFilter();
 
-// Kall funksjonen for å gjengi avdelingsfilteret
-
-        
 
                 // Innledende gjengivelse til stilling, avdelinger og ansatter 
-                renderPositions();
-                renderDepartments();
                 renderStaffList();
                 renderDepartmentFilter();
+                renderOptions(positionSelect, positions);
+                renderOptions(departmentSelect, departments);
 
         
     </script>
