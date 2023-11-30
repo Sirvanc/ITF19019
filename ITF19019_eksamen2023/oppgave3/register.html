@@ -1,141 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff register</title>
-    <link href="style.css" rel="stylesheet" media="screen" />
-</head>
-<body>
-    <header>
-        <h1>Staff Register</h1>
-    </header>
-    <main>
-        <section id="list">
-            <nav id="filter">
-                <p>Filter on position:</p>
-                <ul id="positionFilter">
-                    <li><button class="all active">All positions</button></li>
-                    <li><button class="Director">Director</button></li>
-                    <li><button class="Teamleader">Team leader</button></li>
-                    <li><button class="Producer">Producer</button></li>
-                    <li><button class="Engineer">Engineer</button></li>
-                    <li><button class="Designer">Designer</button></li>
-                </ul>
-                    
-                </ul>
-            </nav>
-            <h2 id="listHeader">Showing all Staff</h2>
-            <div id="staffList">
-            
-            
-                
-                
-            </div>
-        </section>
-        <section id="admin">
-            <div class="form">
-                <h2>Add staff</h2>
-                <p>
-                    <label for="firstname">Firstname</label>
-                    <input type="text" name="firstname" id="firstname" placeholder="Firstname" />
-                </p>
-                <p>
-                    <label for="lastname">Lastname</label>
-                    <input type="text" name="lastname" id="lastname" placeholder="Lastname" /></p>
-                <p>
-                    <label for="position">Position</label>
-                    <select id="position" name="position"> <!--(name="postition" ble endret til  name="position"-->
-                    <!-- -->
-                    
-                    </select>
-                </p>
-                <p>
-                    <label for="department">Department</label>
-                    <select id="department" name="department">
-                        
-                    </select>
-                </p>
-                <p>
-                    <label for="email">Email address</label><input type="email" name="email" id="email" placeholder="you@email.com" />
-                </p>
-                <button id="saveStaff">Save staff member</button>
-            </div>
-            <div class="form">
-                <h2>Add position</h2>
-                <p>
-                    <label for="newPosition">Position</label><input type="text" name="newPosition" id="newPosition" placeholder="Position" />
-                </p>
-                <button id="savePosition" onClick="newPosition()">Save new position</button>
-            </div>
-            <div class="form">
-                <h2>Add department</h2>
-                <p>
-                    <label for="newDepartment">Department</label><input type="text" name="newDepartment" id="newDepartment" placeholder="Department" />
-                </p>
-                <button id="saveDepartment">Save new department</button>
-            </div>
-        </section>
-    </main>
-    <script>
-            
-             //Array of staff objects
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Staff register</title>
+        <link href="style.css" rel="stylesheet" media="screen" />
+    </head>
+
+    <body>
+        <header>
+            <h1>Staff Register</h1>
+        </header>
+        <main>
+            <section id="list">
+                <nav id="filter">
+                    <p>Filter on position:</p>
+                    <ul id="positionFilter">
+                        <li><button class="all active">All positions</button></li>
+                    </ul>
+                </nav>
+                <h2 id="listHeader">Showing all Staff</h2>
+                <div id="staffList">
+
+
+                </div>
+            </section>
+            <section id="admin">
+                <div class="form">
+                    <h2>Add staff</h2>
+                    <p>
+                        <label for="firstname">Firstname</label>
+                        <input type="text" name="firstname" id="firstname" placeholder="Firstname" />
+                    </p>
+                    <p>
+                        <label for="lastname">Lastname</label>
+                        <input type="text" name="lastname" id="lastname" placeholder="Lastname" />
+                    </p>
+                    <p>
+                        <label for="position">Position</label>
+                        <select id="position" name="postition">
+
+                        </select>
+                    </p>
+                    <p>
+                        <label for="department">Department</label>
+                        <select id="department" name="department">
+
+                        </select>
+                    </p>
+                    <p>
+                        <label for="email">Email address</label><input type="email" name="email" id="email"
+                            placeholder="you@email.com" /></select>
+                    </p>
+                    <button id="saveStaff">Save staff member</button>
+                </div>
+                <div class="form">
+                    <h2>Add position</h2>
+                    <p>
+                        <label for="newPosition">Position</label><input type="text" name="newPosition" id="newPosition"
+                            placeholder="Position" />
+                    </p>
+                    <button id="savePosition" onClick="newPosition()">Save new position</button>
+                </div>
+                <div class="form">
+                    <h2>Add department</h2>
+                    <p>
+                        <label for="newDepartment">Department</label><input type="text" name="newDepartment"
+                            id="newDepartment" placeholder="Department" />
+                    </p>
+                    <button id="saveDepartment">Save new department</button>
+                </div>
+            </section>
+        </main>
+        <script>
+
             const staff = [
-                {firstname: "Bill", lastname: "Gates", position: "Director", department: "Administration", email: "bill@gates.net"},
+                { firstname: "Bill", lastname: "Gates", position: "Director", department: "Administration", email: "bill@gates.net" },
                 // Legger til flere ansatte etter behov
-                ];
+            ];
 
-                 //Array of available positions
-                const positions = ["Director", "Team leader", "Producer", "Engineer", "Designer"];
-                //Array of available departments
-                const departments = ["Administration", "Human Resources", "Production", "Finances"];
+            const positions = ["Director", "Team leader", "Producer", "Engineer", "Designer"];
+            const departments = ["Administration", "Human Resources", "Production", "Finances"];
 
-                // Funksjon for å gjengi personalliste
-                function renderStaffList(filteredPosition = null) {
-            const staffListContainer = document.getElementById('staffList');
+            // Funksjon for å gjengi personalliste
+            function renderStaffList(filteredPosition = null) {
+                const staffListContainer = document.getElementById('staffList');
                 staffListContainer.innerHTML = '';
 
-            // Filtrer ansatte basert på stilling hvis det er gitt
-            const filteredStaff = filteredPosition ? staff.filter(member => member.position === filteredPosition) : staff;
+                // Filtrer ansatte basert på stilling hvis det er gitt
+                const filteredStaff = filteredPosition ? staff.filter(member => member.position === filteredPosition) : staff;
 
-            // reprodusere Gjengi ansatter
-            filteredStaff.forEach(member => {
-                const memberDiv = document.createElement('div');
-                memberDiv.innerHTML = `<p>${member.firstname} ${member.lastname} - ${member.position} - ${member.department} - ${member.email}</p>`;
-                staffListContainer.appendChild(memberDiv);
-            });
+                // reprodusere Gjengi ansatter
+                filteredStaff.forEach(member => {
+                    const memberArticle = document.createElement('article');
+                    memberArticle.classList.add("membercard");
+
+                    const h3 = document.createElement('h3');
+                    h3.textContent = `${member.lastname}, ${member.firstname}`;
+                    memberArticle.appendChild(h3);
+
+                    const metainfo = document.createElement('p');
+                    const posIcon = document.createElement('img');
+                    posIcon.src = "posicon.png";
+                    posIcon.alt = "position: ";
+                    metainfo.appendChild(posIcon);
+                    metainfo.innerHTML += `${member.position} `;
+
+                    const depIcon = document.createElement('img');
+                    depIcon.src = "depicon.png";
+                    depIcon.alt = "department: ";
+                    metainfo.appendChild(depIcon);
+                    metainfo.innerHTML += `${member.department}`;
+
+                    memberArticle.appendChild(metainfo);
+
+                    const mailLink = document.createElement('p');
+                    const mailIcon = document.createElement('img');
+                    mailIcon.src = "mailicon.png";
+                    mailLink.innerHTML = `<a href="mailto:${member.email}">${mailIcon.outerHTML} Send mail to ${member.firstname}</a>`;
+
+                    memberArticle.appendChild(mailLink);
+
+                    staffListContainer.appendChild(memberArticle);
+                });
+
 
                 // Oppdater listeoverskrift
-            const listHeader = document.getElementById('listHeader');
-            listHeader.textContent = filteredPosition ? `Showing ${filteredPosition} Staff` : 'Showing all Staff';
-        }
+                const listHeader = document.getElementById('listHeader');
+                listHeader.textContent = filteredPosition ? `Showing ${filteredPosition} Staff` : 'Showing all Staff';
+            }
 
-                //Funksjon for å gjengi posisjoner i menyen
+            //Funksjon for å gjengi posisjoner i menyen
             function renderPositions() {
-            const positionDropdown = document.getElementById('position');
+                const positionDropdown = document.getElementById('position');
 
-            positions.forEach(position => {
-                const option = document.createElement('option');
-                option.value = position;
-                option.textContent = position;
-                positionDropdown.appendChild(option);
-            });
-        }
+                positionDropdown.innerHTML = '';
 
-                // Funksjon for å gjengi avdelinger i menyen
+                positions.forEach(position => {
+                    const option = document.createElement('option');
+                    option.value = position;
+                    option.textContent = position;
+                    positionDropdown.appendChild(option);
+                });
+            }
+
+            // Funksjon for å gjengi avdelinger i nmenyen
             function renderDepartments() {
-            const departmentDropdown = document.getElementById('department');
+                const departmentDropdown = document.getElementById('department');
 
-            departments.forEach(department => {
-                const option = document.createElement('option');
-                option.value = department;
-                option.textContent = department;
-                departmentDropdown.appendChild(option);
-            });
-        }
+                departments.forEach(department => {
+                    const option = document.createElement('option');
+                    option.value = department;
+                    option.textContent = department;
+                    departmentDropdown.appendChild(option);
+                });
+            }
 
-                // Event liste for «Lagre medarbeider»-knappen
-                document.getElementById('saveStaff').addEventListener('click', function() {
+            // Event liste for «Lagre medarbeider»-knappen
+            document.getElementById('saveStaff').addEventListener('click', function () {
                 const firstname = document.getElementById('firstname').value;
                 const lastname = document.getElementById('lastname').value;
                 const position = document.getElementById('position').value;
@@ -145,18 +168,18 @@
                 // Sjekk om noen obligatoriske felt er tomme
                 if (!firstname || !lastname || !email) {
                     alert('Please fill in all required fields.');
-                return;
-            }
+                    return;
+                }
 
-                // Legg til den nye ansatten til personalet
-                staff.push({firstname, lastname, position, department, email});
+                // Legg til den nye medarbeideren til personalet
+                staff.push({ firstname, lastname, position, department, email });
 
                 // Gjengi den oppdaterte personallisten
                 renderStaffList();
-        });
+            });
 
-                // Event liste for "Lagre ny posisjon"-knappen
-                document.getElementById('savePosition').addEventListener('click', function() {
+            // Event liste for "Lagre ny posisjon"-knappen
+            document.getElementById('savePosition').addEventListener('click', function () {
                 const newPosition = document.getElementById('newPosition').value;
 
                 // Legger til den nye posisjonen til positions array
@@ -164,10 +187,11 @@
 
                 // Gjengi menyen for oppdaterte posisjoner
                 renderPositions();
+                renderPosisionFilter();
             });
 
-                //Event liste  for knappen "Lagre ny avdeling".
-                document.getElementById('saveDepartment').addEventListener('click', function() {
+            //Event liste  for knappen "Lagre ny avdeling".
+            document.getElementById('saveDepartment').addEventListener('click', function () {
                 const newDepartment = document.getElementById('newDepartment').value;
 
                 // Legger til den nye avdelingen i avdelings arrayet
@@ -176,33 +200,39 @@
 
                 // Gjengi den oppdaterte menyen for avdelinger
                 renderDepartments();
-                renderDepartmentFilter();
-                const count = filteredStaff.length;
-                    const countText = count === 1 ? 'employee' : 'employees';
-                    const countHeader = document.getElementById('listHeader');
-                    countHeader.textContent += ` - Showing ${count} ${countText} with position ${filteredPosition}`;
-                    if (filteredPosition === null) {
-                        // Tilbakestill ansattlisten og vis alle ansatte alfabetisk sortert etter etternavn
-                        staff.sort((a, b) => a.lastname.localeCompare(b.lastname));
-                        renderStaffList();
-                        return;
-                    }
+            });
 
+            // Event listener for posisjonsfilterknapper
+            document.querySelectorAll('#positionFilter button').forEach(button => {
+                button.addEventListener('click', function () {
+                    // Fjerner den "aktive" klassen fra alle knappene
+                    document.querySelectorAll('#positionFilter button').forEach(btn => btn.classList.remove('active'));
+
+                    // Legger til den "aktive" klassen til den klikkede knappen
+                    this.classList.add('active');
+
+                    // Får posisjonsverdien fra knappens tekstinnhold
+                    const filteredPosition = this.textContent === 'All positions' ? null : this.textContent;
+                    //Oppdater overskriften for personallisten basert på valgt stillingsfilter
+                    const heading = document.getElementById('listHeader');
+                    heading.textContent = filteredPosition ? `Staff List - ${filteredPosition}` : 'Staff List';
+
+                    // Gjengi personallisten med det valgte posisjonsfilteret
+                    renderStaffList(filteredPosition);
+                });
             });
 
             // Funksjon for å gjengi avdelingsfilteret
-            function renderDepartmentFilter() {
-                const departmentFilter = document.getElementById('positionFilter');
-                departmentFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
+            function renderPosisionFilter() {
+                const positionFilter = document.getElementById('positionFilter');
+                positionFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
 
-                departments.forEach(department => {
+                positions.forEach(position => {
                     const li = document.createElement('li');
                     const button = document.createElement('button');
-                    button.textContent = department;
+                    button.textContent = position;
                     li.appendChild(button);
-                    departmentFilter.appendChild(li);
-                    
-                    
+                    positionFilter.appendChild(li);
                 });
 
                 // Legg til event listener for avdelingsfilterknapper
@@ -227,17 +257,14 @@
                 });
             }
 
-            // Kall funksjonen for å gjengi avdelingsfilteret
-
-
-
             // Innledende gjengivelse til stilling, avdelinger og ansatter 
             renderPositions();
             renderDepartments();
             renderStaffList();
-            renderDepartmentFilter();
-            
-        
-    </script>
-</body>
+            renderPosisionFilter();
+
+
+        </script>
+    </body>
+
 </html>
