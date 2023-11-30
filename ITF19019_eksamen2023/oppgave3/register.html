@@ -16,6 +16,12 @@
                 <p>Filter on position:</p>
                 <ul id="positionFilter">
                     <li><button class="all active">All positions</button></li>
+                    <li><button class="Director">Director</button></li>
+                    <li><button class="Teamleader">Team leader</button></li>
+                    <li><button class="Producer">Producer</button></li>
+                    <li><button class="Engineer">Engineer</button></li>
+                    <li><button class="Designer">Designer</button></li>
+                </ul>
                     
                 </ul>
             </nav>
@@ -195,6 +201,8 @@
                     button.textContent = department;
                     li.appendChild(button);
                     departmentFilter.appendChild(li);
+                    
+                    
                 });
 
                 // Legg til event listener for avdelingsfilterknapper
@@ -228,6 +236,7 @@
             renderDepartments();
             renderStaffList();
             renderDepartmentFilter();
+            
         
     </script>
 </body>
