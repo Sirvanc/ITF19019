@@ -52,6 +52,8 @@
             return val;
         }
         //Funksjon som evaluerer sifferet og returnerer resultatet , fanskjon bruker eval for evaluering og beregne  uttrykket så resultaten vises  i tekstfeltet
+        //funksjonen "solve()" gjør, avhenger helt av hvordan den er implementert. Uttrykket "solve" antyder imidlertid,
+        //at funksjonen er designet for å løse et problem eller utføre en beregning
         function solve() {
             let calculation = document.getElementById("calculation").value;// fjernet parantesen
             let result = eval(calculation)
