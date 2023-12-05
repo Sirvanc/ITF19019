@@ -24,7 +24,6 @@
                 <button id="number-comma" value="." onClick="display(',')">,</button>
                 <button id="number-0" value="0" onClick="display('0')">0</button>
                 <button id="control-clear" value="c" onClick="clearScreen()">C</button>
-                <!-- Her  endret bokstave feil på display til displey på alle knappene på taller og controls-->
                 <!--  knapp kal clearscreen ville  slette feltene så vidt jeg vet at for immpementere en knapp bør jeg bruke en kode  value="c"-->
             </div>
             <div id="controls">
@@ -39,8 +38,8 @@
         <div id="memory">
             <p>Memory (<span id="memory-bank">0</span>)</p>
             <button id="memory-add" onclick="addMemory()">Add</button>
-            <button id="memory-browseback"  onclick="browseMemory('back')">Previous</button> <!-- Ble lagt fanskjonen til elementet/knappen Previous-->
-            <button id="memory-browseforward" onclick="browseMemory('forward')">Next</button><!-- Ble lagt fanskjonen til elementet/knappen Next -->
+            <button id="memory-browseback"  onclick="browseMemory('back')">Previous</button> <!-- Ble lagt funskjonen til elementet/knappen Previous-->
+            <button id="memory-browseforward" onclick="browseMemory('forward')">Next</button><!-- Ble lagt funskjonen til elementet/knappen Next -->
         </div>
     </article>
 
@@ -66,7 +65,7 @@
 
         }
          //Memory-funksjonalitet: Kode ble skrevet 
-        let memoryBank = [];
+        let memoryBank = []; //Let kommandoen ble brukt  for å lage  variabel som skal få endre verdi senere i koden
         let currentMemoryIndex = -1;
 
         function addMemory() { // function addMemory()denne fancsjonen  legger til beregningen i minnebanken og oppdaterer minne-
@@ -78,7 +77,7 @@
         enableMemoryButtons();
         }
 
-        function browseMemory(direction) { // denne fanksjonen gir mulighet å bla gjennom minnebanken fremm eller bakover i forhold til retning
+        function browseMemory(direction) { // denne funksjonen gir mulighet å bla gjennom minnebanken fremm eller bakover i forhold til retning
                 if (direction === 'back' && currentMemoryIndex > 0) {
                     currentMemoryIndex--;
                 } else if (direction === 'forward' && currentMemoryIndex < memoryBank.length - 1) {
@@ -100,7 +99,14 @@
 
         function enableMemoryButtons() { // Fanksjonenn aktiverer /deaktiverer knapper for bla gjenomminne basert på minnen
                 document.getElementById("memory-browseback").disabled = currentMemoryIndex === 0;
+                //Denne delen av koden deaktiverer (setter disabled til true) HTML-elementet med ID-en "memory-browseback" hvis currentMemoryIndex er lik null, 
+                //og ellers aktiverer den elementet (setter disabled til false)
                 document.getElementById("memory-browseforward").disabled = currentMemoryIndex === memoryBank.length - 1;
+                /*document.getElementById("memory-browseforward"): Denne delen bruker getElementById-metoden til document-objektet for
+                å finne et HTML-element med ID-en "memory-browseforward". som kontrollerer tilgjengeligheten av en
+                "neste" eller "forward"-knapp basert på verdien av currentMemoryIndex.
+                Hvis currentMemoryIndex er lik lengden av memoryBank minus 1, betyr det at brukeren er på det siste 
+                elementet i en liste eller minnebank, og derfor skal "neste"-knappen være deaktivert.*/
         }
     </script>
 </body>
