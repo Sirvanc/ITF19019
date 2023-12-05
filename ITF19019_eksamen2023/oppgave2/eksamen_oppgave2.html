@@ -18,7 +18,9 @@
                 <li>Squares: <span id="squareCount">0</span></li>
                 <li>Circles: <span id="circleCount">0</span></li>
                 <li>Total: <span id="totalCount">0</span></li>
-                <h1>Activity</h1>
+                <h1>Activity:</h1> <!--her  lagt  3 element <h1> og 2 <ul> for å vise brukeren er aktiv -->
+                <li>User has been active for <span id="activityTime">0</span> seconds,</li>
+                <li>which elements per second: <span id="averageCount">0.00</span></li>
             </ul>
         </nav>
         <canvas id="drawArea"></canvas>
@@ -39,14 +41,34 @@
         ]
 
         //TODO: Function to add an element of parameter type 'square' or 'circle':
-        //manglet fanskjonen for å legge elementer av type'square' or 'circle': implemnter denne fanksjonen ved håndter klikk på S-knapp og C knapp
-        function addElement(type){
-                const x = Math.floor(Math.random() * canvas.width);
-                const y = Math.floor(Math.random() * canvas.height);
+        // implemnter denne fanksjonen ved håndter klikk på S-knapp og C knapp
+                let totalElements = 0;
+                    let totalTime = 0;
 
-            elements.push({ type, x, y });
-            updateCounts();
-        }
+                    function addElement(type) {
+                        const x = Math.floor(Math.random() * canvas.width);
+                        const y = Math.floor(Math.random() * canvas.height);
+
+                        elements.push({ type, x, y });
+                        totalElements++;
+                        updateCounts();
+                    }
+
+                    // Funksjon for å oppdatere gjennomsnittlig antall elementer per sekund
+                    function updateAverage() {
+                        const averageElementsPerSecond = totalElements / totalTime;
+                        document.getElementById("averageCount").textContent = averageElementsPerSecond.toFixed(2);
+
+                        //  melding om brukeraktiviteten oppdatereres 
+                        document.getElementById("activityTime").textContent = totalTime;
+                    }
+
+                    // gjennomsnitt skal oppdateres hver sekunder 
+                    setInterval(() => {
+                        totalTime++;
+                        updateAverage();
+                        document.getElementById("activityTime").textContent = totalTime;
+                    }, 1000);
         
         
 
@@ -85,7 +107,7 @@
             }
 
         
-        //Function to draw on canvas:
+        // Funksjon for å tegne elementer på canvas:
         function renderDrawings() {
             //Clear the rectangle
             ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -114,12 +136,7 @@
             //Use requestAnimationFrame to re-run renderDrawings-function
             requestAnimationFrame(renderDrawings)
         
-        //Start drawing
-        function renderDrawings() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                drawElements();
-                requestAnimationFrame(renderDrawings);
-            }
+
     </script>
 </body>
 </html>
