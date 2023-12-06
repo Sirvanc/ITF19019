@@ -88,10 +88,10 @@
                 const staffListContainer = document.getElementById('staffList');
                 staffListContainer.innerHTML = '';
 
-                // Filtrer ansatte basert på stilling hvis det er gitt
+                //  Filtrer ansatte basert på stilling hvis det er gitt
                 const filteredStaff = filteredPosition ? staff.filter(member => member.position === filteredPosition) : staff;
 
-                // Går gjennom hvert medlem av personalet og legger til HTML-elementer
+                // en løkke (forEach-løkke) som går gjennom hvert medlem av personalet og legger til HTML-elementer
                 filteredStaff.forEach(member => {
                     const memberArticle = document.createElement('article');
                     memberArticle.classList.add("membercard");
@@ -126,7 +126,7 @@
                 });
 
 
-                // Oppdater listeoverskrift
+                // Oppdaterer listeoverskrift
                 const listHeader = document.getElementById('listHeader');
                 listHeader.textContent = filteredPosition ? `Showing ${filteredPosition} Staff` : 'Showing all Staff';
             }
@@ -137,6 +137,7 @@
 
                 positionDropdown.innerHTML = '';
 
+                // en løkke (forEach-løkke) som går gjennom hvert jobbstilling 
                 positions.forEach(position => {
                     const option = document.createElement('option');
                     option.value = position;
@@ -145,7 +146,7 @@
                 });
             }
 
-            // Funksjon for å gjengi avdelinger i nmenyen
+            // Funksjon  for å gjengi avdelinger i nmenyen
             function renderDepartments() {
                 const departmentDropdown = document.getElementById('department');
 
