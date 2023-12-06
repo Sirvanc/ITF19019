@@ -77,7 +77,7 @@
         enableMemoryButtons();
         }
 
-        function browseMemory(direction) { // denne funksjonen gir mulighet å bla gjennom minnebanken fremm eller bakover i forhold til retning
+        function browseMemory(direction) { // denne funksjonen gir mulighet å bla gjennom minnebanken fremm eller bakover i forhold til retning og antall tall som er lagret i minne
                 if (direction === 'back' && currentMemoryIndex > 0) {
                     currentMemoryIndex--;
                 } else if (direction === 'forward' && currentMemoryIndex < memoryBank.length - 1) {
@@ -90,7 +90,7 @@
                 document.getElementById("memory-bank").innerText = memoryBank.length;
         }
 
-        function updateCalculationFromMemory() { // denne fanksjoenen oppdaterer tekstfel med beregningen fra minne og aktivererminimerer knapper for å bla gjennom minne
+        function updateCalculationFromMemory() { // denne fanksjoenen oppdaterer tekstfelt med beregningen fra minne og aktivererminimerer knapper for å bla gjennom minne
                 document.getElementById("calculation").value = memoryBank[currentMemoryIndex];
                 enableMemoryButtons();
         }
