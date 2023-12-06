@@ -91,7 +91,7 @@
                 // Filtrer ansatte basert på stilling hvis det er gitt
                 const filteredStaff = filteredPosition ? staff.filter(member => member.position === filteredPosition) : staff;
 
-                // reprodusere Gjengi ansatter
+                // Går gjennom hvert medlem av personalet og legger til HTML-elementer
                 filteredStaff.forEach(member => {
                     const memberArticle = document.createElement('article');
                     memberArticle.classList.add("membercard");
