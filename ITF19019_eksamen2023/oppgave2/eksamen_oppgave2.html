@@ -54,19 +54,22 @@
                 updateCounts();
             }
 
-        // Funksjon for å oppdatere gjennomsnittlig antall elementer per sekund
+        // Funksjon for å oppdatere gjennomsnittlig antall elementer per sekund basert på 'totalElemnt og totalTime'
         function updateAverage() {
                 const averageElementsPerSecond = totalElements / totalTime;
                 document.getElementById("averageCount").textContent = averageElementsPerSecond.toFixed(2);
 
-                //  melding om brukeraktiviteten oppdatereres 
+                //Melding om aktiviteten for brukeren  oppdatereres 
                 document.getElementById("activityTime").textContent = totalTime;
             }
 
-            // gjennomsnitt skal oppdateres hver sekunder 
+            //Gjennomsnitt skal oppdateres hver sekunder
+            //bruker setInterval for å øke totalTime med 1, oppdatere gjennomsnittet ved å kalle 
+            //updateAverage(), og deretter oppdatere tekstinnholdet til et HTML-element med ID-en 
+            //"activityTime" med den nye verdien av totalTime. Dette gjøres hvert sekund (1000 millisekunder).
             setInterval(() => {
                 totalTime++; updateAverage();
-                document.getElementById("activityTime").textContent == totalTime
+                document.getElementById("activityTime").textContent = totalTime
             }, 1000);            
         
         
