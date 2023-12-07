@@ -47,7 +47,7 @@
     <script>
         //Denne funksjonen viser verdiene,  viser tall og operasjoner i tekstfeltet også verdien i tekstfeltet ved knapp klikking
         function display(val) {
-            console.log("Displaying:", val); // lagt til console.log setningen i funksjonen 
+            console.log("Displaying:", val); //console. log ble lagt  for  for å skrive ut informasjonen display stringen og variabel "Val"
             document.getElementById("calculation").value += val; // document.getElementByID og ("calculatin")  ble endret til document.getElementById  ("calculation")
             return val;
         }
@@ -97,7 +97,6 @@
         }
 
         
-
         function enableMemoryButtons() { // Fanksjonenn aktiverer /deaktiverer knapper for bla gjenomminne basert på minnen
                 document.getElementById("memory-browseback").disabled = currentMemoryIndex === 0;
                 //Denne delen av koden deaktiverer (setter disabled til true) HTML-elementet med ID-en "memory-browseback" hvis currentMemoryIndex er lik null, 

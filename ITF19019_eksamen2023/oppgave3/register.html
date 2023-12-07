@@ -128,86 +128,85 @@
 
                 });
 
-
                 // Oppdaterer listeoverskrift
-            const listHeader = document.getElementById('listHeader');
-            listHeader.textContent = filteredPosition ? `Showing ${filteredPosition} Staff` : 'Showing all Staff';
+                const listHeader = document.getElementById('listHeader');
+                listHeader.textContent = filteredPosition ? `Showing ${filteredPosition} Staff` : 'Showing all Staff';
             
-        }
-
-            //Funksjon for å gjengi posisjoner i menyen
-            function renderPositions() {
-            const positionDropdown = document.getElementById('position');
-
-            positionDropdown.innerHTML = '';
-
-            // en løkke (forEach-løkke) som går gjennom hvert jobbstilling 
-            positions.forEach(position => {
-                    const option = document.createElement('option');
-                    option.value = position;
-                    option.textContent = position;
-                    positionDropdown.appendChild(option);
-                });
             }
 
-            // Funksjon  for å gjengi avdelinger i menyen
-            function renderDepartments() {
-                const departmentDropdown = document.getElementById('department');
+                //Funksjon for å gjengi posisjoner i menyen
+                function renderPositions() {
+                const positionDropdown = document.getElementById('position');
 
-                departments.forEach(department => {
-                    const option = document.createElement('option');
-                    option.value = department;
-                    option.textContent = department;
-                    departmentDropdown.appendChild(option);
-                });
-            }
+                positionDropdown.innerHTML = '';
 
-            // Event liste for «Lagre ansatt/medarbeider»-knappen
-            document.getElementById('saveStaff').addEventListener('click', function () {
-                const firstname = document.getElementById('firstname').value;
-                const lastname = document.getElementById('lastname').value;
-                const position = document.getElementById('position').value;
-                const department = document.getElementById('department').value;
-                const email = document.getElementById('email').value;
-
-                // Sjekk om noen obligatoriske felt er tomme
-                if (!firstname || !lastname || !email) {
-                    alert('Please fill in all required fields.');
-                    return;
+                // en løkke (forEach-løkke) som går gjennom hvert jobbstilling 
+                positions.forEach(position => {
+                        const option = document.createElement('option');
+                        option.value = position;
+                        option.textContent = position;
+                        positionDropdown.appendChild(option);
+                    });
                 }
+
+                // Funksjon  for å gjengi avdelinger i menyen
+                function renderDepartments() {
+                    const departmentDropdown = document.getElementById('department');
+
+                    departments.forEach(department => {
+                        const option = document.createElement('option');
+                        option.value = department;
+                        option.textContent = department;
+                        departmentDropdown.appendChild(option);
+                    });
+                }
+
+                // Event liste for «Lagre ansatt/medarbeider»-knappen
+                document.getElementById('saveStaff').addEventListener('click', function () {
+                    const firstname = document.getElementById('firstname').value;
+                    const lastname = document.getElementById('lastname').value;
+                    const position = document.getElementById('position').value;
+                    const department = document.getElementById('department').value;
+                    const email = document.getElementById('email').value;
+
+                    // Sjekk om noen obligatoriske felt er tomme
+                    if (!firstname || !lastname || !email) {
+                        alert('Please fill in all required fields.');
+                        return;
+                    }
 
                 // Legg til den nye medarbeideren til personalet
                 staff.push({ firstname, lastname, position, department, email });
 
                 // Gjengi den oppdaterte personallisten
                 renderStaffList();
-            });
+                });
 
-            // Event liste for "Lagre ny posisjon"-knappen
-            document.getElementById('savePosition').addEventListener('click', function () {
-                const newPosition = document.getElementById('newPosition').value;
+                // Event liste for "Lagre ny posisjon"-knappen
+                document.getElementById('savePosition').addEventListener('click', function () {
+                    const newPosition = document.getElementById('newPosition').value;
 
-                // Legger til den nye posisjonen til positions array
-                positions.push(newPosition);
+                    // Legger til den nye posisjonen til positions array
+                    positions.push(newPosition);
 
-                // Gjengi menyen for oppdaterte posisjoner
-                renderPositions();
-                renderPosisionFilter();
-            });
+                    // Gjengi menyen for oppdaterte posisjoner
+                    renderPositions();
+                    renderPosisionFilter();
+                });
 
-            //Event liste  for knappen "Lagre ny avdeling".
-            document.getElementById('saveDepartment').addEventListener('click', function () {
-                const newDepartment = document.getElementById('newDepartment').value;
+                //Event liste  for knappen "Lagre ny avdeling".
+                document.getElementById('saveDepartment').addEventListener('click', function () {
+                    const newDepartment = document.getElementById('newDepartment').value;
 
-                // Legger til den nye avdelingen i avdelings arrayet
-                departments.push(newDepartment);
-                // Gjengi den oppdaterte menyen for avdelinger
-                renderDepartments();
-            });
+                    // Legger til den nye avdelingen i avdelings arrayet
+                    departments.push(newDepartment);
+                    // Gjengi den oppdaterte menyen for avdelinger
+                    renderDepartments();
+                });
 
-            // Event listener for posisjonsfilterknapper
-            document.querySelectorAll('#positionFilter button').forEach(button => {
-                button.addEventListener('click', function () {
+                // Event listener for posisjonsfilterknapper
+                document.querySelectorAll('#positionFilter button').forEach(button => {
+                    button.addEventListener('click', function () {
                     // Fjerner den "aktive" klassen fra alle knappene
                     document.querySelectorAll('#positionFilter button').forEach(btn => btn.classList.remove('active'));
 
@@ -222,11 +221,11 @@
 
                     // Gjengi personallisten med det valgte posisjonsfilteret
                     renderStaffList(filteredPosition);
+                    });
                 });
-            });
 
-            // Funksjon for å gjengi avdelingsfilteret
-            function renderPosisionFilter() {
+                // Funksjon for å gjengi avdelingsfilteret
+                function renderPosisionFilter() {
                 const positionFilter = document.getElementById('positionFilter');
                 positionFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
 

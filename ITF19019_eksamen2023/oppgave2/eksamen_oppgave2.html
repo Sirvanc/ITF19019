@@ -42,33 +42,32 @@
 
         //TODO: Function to add an element of parameter type 'square' or 'circle':
         // implemnter denne fanksjonen ved håndter klikk på S-knapp og C knapp
-                let totalElements = 0;
-                    let totalTime = 0;
+        let totalElements = 0;
+            let totalTime = 0;
 
-                    function addElement(type) {
-                        const x = Math.floor(Math.random() * canvas.width);
-                        const y = Math.floor(Math.random() * canvas.height);
+            function addElement(type) {
+                const x = Math.floor(Math.random() * canvas.width);
+                const y = Math.floor(Math.random() * canvas.height);
 
-                        elements.push({ type, x, y });
-                        totalElements++;
-                        updateCounts();
-                    }
+                elements.push({ type, x, y });
+                totalElements++;
+                updateCounts();
+            }
 
-                    // Funksjon for å oppdatere gjennomsnittlig antall elementer per sekund
-                    function updateAverage() {
-                        const averageElementsPerSecond = totalElements / totalTime;
-                        document.getElementById("averageCount").textContent = averageElementsPerSecond.toFixed(2);
+        // Funksjon for å oppdatere gjennomsnittlig antall elementer per sekund
+        function updateAverage() {
+                const averageElementsPerSecond = totalElements / totalTime;
+                document.getElementById("averageCount").textContent = averageElementsPerSecond.toFixed(2);
 
-                        //  melding om brukeraktiviteten oppdatereres 
-                        document.getElementById("activityTime").textContent = totalTime;
-                    }
+                //  melding om brukeraktiviteten oppdatereres 
+                document.getElementById("activityTime").textContent = totalTime;
+            }
 
-                    // gjennomsnitt skal oppdateres hver sekunder 
-                    setInterval(() => {
-                        totalTime++;
-                        updateAverage();
-                        document.getElementById("activityTime").textContent = totalTime;
-                    }, 1000);
+            // gjennomsnitt skal oppdateres hver sekunder 
+            setInterval(() => {
+                totalTime++; updateAverage();
+                document.getElementById("activityTime").textContent == totalTime
+            }, 1000);            
         
         
 
@@ -106,7 +105,7 @@
                 document.getElementById("totalCount").textContent = elements.length;
             }
 
-        
+        //Function to draw on canvas:
         // Funksjon for å tegne elementer på canvas:
         function renderDrawings() {
             //Clear the rectangle
@@ -115,34 +114,30 @@
             requestAnimationFrame(renderDrawings);
         }
 
-            //TODO: Draw the elements on canvas:
-            function drawElements() {
-                    elements.forEach((element) => {
-                        ctx.beginPath();
-                        if (element.type === "square") {
-                            ctx.fillStyle = "blue";
-                            ctx.fillRect(element.x, element.y, 8, 8);
-                        } else if (element.type === "circle") {
-                            ctx.fillStyle = "gold";
-                            ctx.arc(element.x, element.y, 13, 0, 2 * Math.PI);
-                            ctx.fill();
-                        }
-                    });
-                }
+        //TODO: Draw the elements on canvas:
+        function drawElements() {
+            elements.forEach((element) => {
+                ctx.beginPath();
+                if (element.type === "square") {
+                    ctx.fillStyle = "blue";
+                    ctx.fillRect(element.x, element.y, 8, 8);
+                    } else if (element.type === "circle") {
+                    ctx.fillStyle = "gold";
+                    ctx.arc(element.x, element.y, 13, 0, 2 * Math.PI);
+                    ctx.fill();
+                    }
+                });
 
-
+            }
+            
             //Testprint:
             console.log("Currently drawing frames...")
             //Use requestAnimationFrame to re-run renderDrawings-function
             requestAnimationFrame(renderDrawings)
-
-        
+            
             //Start drawing
             renderDrawings()
-
-    
         
-
     </script>
 </body>
 </html>
