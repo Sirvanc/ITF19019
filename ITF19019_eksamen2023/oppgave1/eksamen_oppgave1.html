@@ -12,26 +12,27 @@
         <input type="text" id="calculation" />
         <div id="keyboard">
             <div id="numbers">
-                <button id="number-1" value="1" onClick="display('1')">1</button>
-                <button id="number-2" value="2" onClick="display('2')">2</button>
-                <button id="number-3" value="3" onClick="display('3')">3</button>
-                <button id="number-4" value="4" onClick="display('4')">4</button>
-                <button id="number-5" value="5" onClick="display('5')">5</button>
-                <button id="number-6" value="6" onClick="display('6')">6</button>
-                <button id="number-7" value="7" onClick="display('7')">7</button>
-                <button id="number-8" value="8" onClick="display('8')">8</button>
-                <button id="number-9" value="9" onClick="display('9')">9</button>
-                <button id="number-comma" value="." onClick="display(',')">,</button>
-                <button id="number-0" value="0" onClick="display('0')">0</button>
-                <button id="control-clear" value="c" onClick="clearScreen()">C</button>
-                <!--  knapp kal clearscreen ville  slette feltene så vidt jeg vet at for immpementere en knapp bør jeg bruke en kode  value="c"-->
+                <!-- Rettet opp skrivefeil i HTML-koden: onClick="display('1')"  til alle knappene bør være onclick="display('1')" -->
+                <button id="number-1" value="1" onclick="display('1')">1</button>
+                <button id="number-2" value="2" onclick="display('2')">2</button>
+                <button id="number-3" value="3" onclick="display('3')">3</button>
+                <button id="number-4" value="4" onclick="display('4')">4</button>
+                <button id="number-5" value="5" onclick="display('5')">5</button>
+                <button id="number-6" value="6" onclick="display('6')">6</button>
+                <button id="number-7" value="7" onclick="display('7')">7</button>
+                <button id="number-8" value="8" onclick="display('8')">8</button>
+                <button id="number-9" value="9" onclick="display('9')">9</button>
+                <button id="number-comma" value="." onclick="display(',')">,</button>
+                <button id="number-0" value="0" onclick="display('0')">0</button>
+                <button id="control-clear" value="c" onClick="clearScreen()">c</button>
+                <!-- Rettet opp skrivefeil i HTML-koden: onClick="display('1')" bør være onclick="display('1')" (liten "c").-->
             </div>
             <div id="controls">
-                <button id="control-plus" value="+" onClick="display('+')">+</button>
-                <button id="control-minus" value="-" onClick="display('-')">-</button>
-                <button id="control-multiply" value="*" onClick="display('*')">*</button>
-                <button id="control-divide" value="/" onClick="display('/')">/</button> 
-                <!-- rettet og endret duplisert kontroll multiply til divide-->
+                <button id="control-plus" value="+" onclick="display('+')">+</button>
+                <button id="control-minus" value="-" onclick="display('-')">-</button>
+                <button id="control-multiply" value="*" onclick="display('*')">*</button>
+                <button id="control-divide" value="/" onclick="display('/')">/</button> 
+                <!-- Rettet opp og endret duplisert kontroll multiply til divide-->
                 <button id="control-equal" value="=" onClick="solve()">=</button>
             </div>
         </div>

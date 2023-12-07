@@ -74,13 +74,15 @@
             </section>
         </main>
         <script>
-
+            //Array of staff objects
             const staff = [
                 { firstname: "Bill", lastname: "Gates", position: "Director", department: "Administration", email: "bill@gates.net" },
-                // Legger til flere ansatte etter behov
+                
             ];
-
+            //Array of available positions
             const positions = ["Director", "Team leader", "Producer", "Engineer", "Designer"];
+
+            //Array of available departments
             const departments = ["Administration", "Human Resources", "Production", "Finances"];
 
             // Funksjon for å gjengi personalliste
@@ -88,57 +90,59 @@
                 const staffListContainer = document.getElementById('staffList');
                 staffListContainer.innerHTML = '';
 
-                //  Filtrer ansatte basert på stilling hvis det er gitt
-                const filteredStaff = filteredPosition ? staff.filter(member => member.position === filteredPosition) : staff;
+            // Filtrer ansatte basert på stilling hvis det er gitt
+            const filteredStaff = filteredPosition ? staff.filter(member => member.position === filteredPosition) : staff;
 
-                // en løkke (forEach-løkke) som går gjennom hvert medlem av personalet og legger til HTML-elementer
-                filteredStaff.forEach(member => {
-                    const memberArticle = document.createElement('article');
-                    memberArticle.classList.add("membercard");
+            // en løkke (forEach-løkke) som går gjennom hvert medlem av personalet og legger til HTML-elementer
+            filteredStaff.forEach(member => {
+                const memberArticle = document.createElement('article');
+                memberArticle.classList.add("membercard");
 
-                    const h3 = document.createElement('h3');
-                    h3.textContent = `${member.lastname}, ${member.firstname}`;
-                    memberArticle.appendChild(h3);
+                const h3 = document.createElement('h3');
+                h3.textContent = `${member.lastname}, ${member.firstname}`;
+                memberArticle.appendChild(h3);
 
-                    const metainfo = document.createElement('p');
-                    const posIcon = document.createElement('img');
-                    posIcon.src = "posicon.png";
-                    posIcon.alt = "position: ";
-                    metainfo.appendChild(posIcon);
-                    metainfo.innerHTML += `${member.position} `;
+                const metainfo = document.createElement('p');
+                const posIcon = document.createElement('img');
+                posIcon.src = "posicon.png";
+                posIcon.alt = "position: ";
+                metainfo.appendChild(posIcon);
+                metainfo.innerHTML += `${member.position} `;
 
-                    const depIcon = document.createElement('img');
-                    depIcon.src = "depicon.png";
-                    depIcon.alt = "department: ";
-                    metainfo.appendChild(depIcon);
-                    metainfo.innerHTML += `${member.department}`;
+                const depIcon = document.createElement('img');
+                depIcon.src = "depicon.png";
+                depIcon.alt = "department: ";
+                metainfo.appendChild(depIcon);
+                metainfo.innerHTML += `${member.department}`;
 
-                    memberArticle.appendChild(metainfo);
+                memberArticle.appendChild(metainfo);
 
-                    const mailLink = document.createElement('p');
-                    const mailIcon = document.createElement('img');
-                    mailIcon.src = "mailicon.png";
-                    mailLink.innerHTML = `<a href="mailto:${member.email}">${mailIcon.outerHTML} Send mail to ${member.firstname}</a>`;
+                const mailLink = document.createElement('p');
+                const mailIcon = document.createElement('img');
+                mailIcon.src = "mailicon.png";
+                mailLink.innerHTML = `<a href="mailto:${member.email}">${mailIcon.outerHTML} Send mail to ${member.firstname}</a>`;
 
-                    memberArticle.appendChild(mailLink);
+                memberArticle.appendChild(mailLink);
 
-                    staffListContainer.appendChild(memberArticle);
+                staffListContainer.appendChild(memberArticle);
+
                 });
 
 
                 // Oppdaterer listeoverskrift
-                const listHeader = document.getElementById('listHeader');
-                listHeader.textContent = filteredPosition ? `Showing ${filteredPosition} Staff` : 'Showing all Staff';
-            }
+            const listHeader = document.getElementById('listHeader');
+            listHeader.textContent = filteredPosition ? `Showing ${filteredPosition} Staff` : 'Showing all Staff';
+            
+        }
 
             //Funksjon for å gjengi posisjoner i menyen
             function renderPositions() {
-                const positionDropdown = document.getElementById('position');
+            const positionDropdown = document.getElementById('position');
 
-                positionDropdown.innerHTML = '';
+            positionDropdown.innerHTML = '';
 
-                // en løkke (forEach-løkke) som går gjennom hvert jobbstilling 
-                positions.forEach(position => {
+            // en løkke (forEach-løkke) som går gjennom hvert jobbstilling 
+            positions.forEach(position => {
                     const option = document.createElement('option');
                     option.value = position;
                     option.textContent = position;
@@ -146,7 +150,7 @@
                 });
             }
 
-            // Funksjon  for å gjengi avdelinger i nmenyen
+            // Funksjon  for å gjengi avdelinger i menyen
             function renderDepartments() {
                 const departmentDropdown = document.getElementById('department');
 
@@ -158,7 +162,7 @@
                 });
             }
 
-            // Event liste for «Lagre medarbeider»-knappen
+            // Event liste for «Lagre ansatt/medarbeider»-knappen
             document.getElementById('saveStaff').addEventListener('click', function () {
                 const firstname = document.getElementById('firstname').value;
                 const lastname = document.getElementById('lastname').value;
@@ -197,8 +201,6 @@
 
                 // Legger til den nye avdelingen i avdelings arrayet
                 departments.push(newDepartment);
-
-
                 // Gjengi den oppdaterte menyen for avdelinger
                 renderDepartments();
             });
@@ -251,6 +253,7 @@
                         // Oppdater overskriften for personallisten basert på valgt stillingsfilter
                         const heading = document.getElementById('listHeader');
                         heading.textContent = filteredPosition ? `Staff List - ${filteredPosition}` : 'Staff List';
+                        
 
                         // Gjengi personallisten med det valgte posisjonsfilteret
                         renderStaffList(filteredPosition);
