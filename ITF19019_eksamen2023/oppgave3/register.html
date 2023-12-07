@@ -22,6 +22,7 @@
                 </nav>
                 <h2 id="listHeader">Showing all Staff</h2>
                 <div id="staffList">
+                <p id="staffCount">
 
 
                 </div>
@@ -130,9 +131,11 @@
 
                 // Oppdaterer listeoverskrift
                 const listHeader = document.getElementById('listHeader');
-                listHeader.textContent = filteredPosition ? `Showing ${filteredPosition} Staff` : 'Showing all Staff';
-            
+                const staffCount = filteredStaff.length;
+                listHeader.textContent = filteredPosition ? `Showing ${filteredPosition} Staff (${staffCount} members)` : `Showing all Staff (${staffCount} members)`;
             }
+            
+            
 
                 //Funksjon for å gjengi posisjoner i menyen
                 function renderPositions() {
@@ -170,8 +173,8 @@
                     const email = document.getElementById('email').value;
 
                     // Sjekk om noen obligatoriske felt er tomme
-                    if (!firstname || !lastname || !email) {
-                        alert('Please fill in all required fields.');
+                    if (!firstname || !lastname || !position || !department || !email) {
+                        alert('Please fill in all required fields, including department.');
                         return;
                     }
 
@@ -194,14 +197,29 @@
                     renderPosisionFilter();
                 });
 
+                
+
                 //Event liste  for knappen "Lagre ny avdeling".
                 document.getElementById('saveDepartment').addEventListener('click', function () {
-                    const newDepartment = document.getElementById('newDepartment').value;
+                    const newDepartmentInput = document.getElementById('newDepartment');
+                    const newDepartment = newDepartmentInput.value;
+
+                    // Sjekk om avdelingsfeltet er tomt
+                    if (!newDepartment.trim()) {
+                        alert('Please enter a department before saving.');
+                        return;
+                    }
+                    // Tømer den gamle  listen med avdelinger
+                    departments.length = 0;
 
                     // Legger til den nye avdelingen i avdelings arrayet
                     departments.push(newDepartment);
+
                     // Gjengi den oppdaterte menyen for avdelinger
                     renderDepartments();
+
+                    // Tøm inputfeltet etter at avdelingen er lagret
+                    newDepartmentInput.value = '';
                 });
 
                 // Event listener for posisjonsfilterknapper
@@ -237,7 +255,17 @@
                     positionFilter.appendChild(li);
                 });
 
-                // Legg til event listener for avdelingsfilterknapper
+                // Function to show the number of staff with the selected position
+                    function renderPositionCount(filteredPosition) {
+                        const positionCountElement = document.getElementById('positionCount');
+                        const count = filteredPosition
+                            ? staff.filter(member => member.position === filteredPosition).length
+                            : staff.length;
+
+                        positionCountElement.textContent = `Number of staff with ${filteredPosition || 'any'} position: ${count}`;
+                    }
+                
+                // Legg til event listener for posisjonsfilterknapper
                 document.querySelectorAll('#positionFilter button').forEach(button => {
                     button.addEventListener('click', function () {
                         // Fjerner den "aktive" klassen fra alle knappene
@@ -254,8 +282,9 @@
                         heading.textContent = filteredPosition ? `Staff List - ${filteredPosition}` : 'Staff List';
                         
 
-                        // Gjengi personallisten med det valgte posisjonsfilteret
+                        // personallisten med det valgte posisjonsfilteret
                         renderStaffList(filteredPosition);
+                        renderPositionCount(filteredPosition);
                     });
                 });
             }
@@ -265,6 +294,7 @@
             renderDepartments();
             renderStaffList();
             renderPosisionFilter();
+            renderPositionCount();
 
 
         </script>
